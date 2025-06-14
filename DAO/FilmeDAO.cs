@@ -1,12 +1,12 @@
 using api_cinema.Models;
 
-namespace api_cinema.Mapeamento
+namespace api_cinema.DAO
 {
-    public class FilmeMap
+    public class FilmeDAO
     {
         public List<Filme> filmes = new List<Filme>();
 
-        public FilmeMap()
+        public FilmeDAO()
         {
             filmes.Add(new Filme(1, "Filme 1"));
             filmes.Add(new Filme(2, "Filme 2"));

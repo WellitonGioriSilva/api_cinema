@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using api_cinema.Mapeamento;
+using api_cinema.DAO;
 using api_cinema.Models;
 
 namespace api_cinema.Controlador
@@ -13,8 +13,8 @@ namespace api_cinema.Controlador
         {
             try
             {
-                FilmeMap filmeMap = new FilmeMap();
-                var filmes = filmeMap.getAll();
+                FilmeDAO filmeDAO = new FilmeDAO();
+                var filmes = filmeDAO.getAll();
 
                 return Ok(filmes);
             }
@@ -41,8 +41,8 @@ namespace api_cinema.Controlador
         {
             try
             {
-                FilmeMap filmeMap = new FilmeMap();
-                var filmes = filmeMap.getById(id);
+                FilmeDAO filmeDAO = new FilmeDAO();
+                var filmes = filmeDAO.getById(id);
 
                 return Ok(filmes);
             }
@@ -69,8 +69,8 @@ namespace api_cinema.Controlador
         {
             try
             {
-                FilmeMap filmeMap = new FilmeMap();
-                filmeMap.create(filme);
+                FilmeDAO filmeDAO = new FilmeDAO();
+                filmeDAO.create(filme);
 
                 return Ok("Salvo com sucesso!");
             }
@@ -97,7 +97,7 @@ namespace api_cinema.Controlador
         {
             try
             {
-                //FilmeMap filmeMap = new FilmeMap();
+                //FilmeDAO filmeMap = new FilmeDAO();
                 //filmeMap.create(filme);
 
                 return Ok("Salvo com sucesso!");
