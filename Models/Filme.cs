@@ -4,14 +4,24 @@ namespace api_cinema.Models
 {
     public class Filme
     {
-        public int id { get; private set; }
+        public int _id { get; private set; }
         [Required]
-        public string nome { get; private set; }
-
-        public Filme(int id, string nome)
+        public string _nome { get; private set; }
+        public string _sinopse { get; private set; }
+        [Required]
+        public TimeSpan _duracao { get; private set; }
+        // public string categoria_fil { get; private set; }
+        public Filme()
         {
-            this.id = id;
-            this.nome = nome;
+           
+        }
+        public Filme(int id, string nome, string sinopse, TimeSpan duracao)
+        {
+            _id = id;
+            _nome = nome;
+            _sinopse = sinopse;
+            _duracao = duracao;
+
         }
     }
 }
