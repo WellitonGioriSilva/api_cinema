@@ -12,15 +12,21 @@ namespace api_cinema.DAO
             
         }
 
-        public List<Filme> getAll()
+        public List<Filme> getAll(int id, string nome)
         {
             List<Filme> filmes = new List<Filme>();
 
             try
             {
-                string sql = $"SELECT * FROM Filmes ORDER BY nome_fil";
+                string filter = "";
+                if (nome != "") filter = "WHERE nome_fil LIKE @nome";
+                if (id != 0 && id != null) filter = "WHERE id_fil = @id";
+
+                string sql = $"SELECT * FROM Filmes {filter} ORDER BY id_fil";
 
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
+                if (nome != "") comando.Parameters.AddWithValue("@nome", $"{nome}%");
+                if (id != 0 && id != null) comando.Parameters.AddWithValue("@id", $"{id}%");
 
                 using (MySqlDataReader dr = comando.ExecuteReader())
                 {

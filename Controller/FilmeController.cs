@@ -10,12 +10,12 @@ namespace api_cinema.Controller
     public class FilmeController : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(int id, string nome = "")
         {
             try
             {
                 FilmeDAO filmeDAO = new FilmeDAO();
-                return Ok(filmeDAO.getAll());
+                return Ok(filmeDAO.getAll(id, nome));
             }
             catch (KeyNotFoundException ex)
             {
