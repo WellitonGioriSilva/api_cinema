@@ -5,47 +5,50 @@ using api_cinema.Models;
 
 namespace api_cinema.DAO
 {
-    public class FilmeDAO
+    public class SessaoDAO
     {
 
-        public FilmeDAO()
+        public SessaoDAO()
         {
             
         }
 
-        public List<Filme> getAll(int id, string nome)
+        public List<Sessao> getAll(int id, int id_filme_fk)
         {
-            List<Filme> filmes = new List<Filme>();
+            List<Sessao> sessoes = new List<Sessao>();
 
             try
             {
                 string filter = "";
-                if (id != 0 && id != null) filter = "WHERE id_fil = @id";
-                else if (nome != "") filter = "WHERE nome_fil LIKE @nome";
+                if (id != 0 && id != null) filter = "WHERE id_ses = @id";
+                else if (id_filme_fk != 0 && id_filme_fk != null) filter = "WHERE id_filme_fk LIKE @id_fil";
 
-                string sql = $"SELECT f.*, c.nome_cat_fil AS categoria FROM Filmes AS f " + 
-                "INNER JOIN Categorias_Filme AS c ON c.id_cat_fil = f.id_categoria_fk" +
-                $"{filter} ORDER BY f.id_fil";
+                string sql = $"SELECT s.*, f.* FROM Sessoes AS s " + 
+                "INNER JOIN Filmes AS f ON f.id_fil = s.id_filme_fk " +
+                $"{filter} ORDER BY s.id_ses";
 
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
                 if (id != 0 && id != null) comando.Parameters.AddWithValue("@id", $"{id}%");
-                else if (nome != "") comando.Parameters.AddWithValue("@nome", $"{nome}%");
+                else if (id_filme_fk != 0 && id_filme_fk != null) comando.Parameters.AddWithValue("@id_fil", $"{id_filme_fk}%");
 
                 using (MySqlDataReader dr = comando.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        CategoriaFilme categoria = new CategoriaFilme(
-                            dr.GetInt32("id_categoria_fk"),
-                            dr.GetString("categoria"));
-
                         Filme filme = new Filme(
-                            dr.GetInt32("id_fil"), 
+                            dr.GetInt32("id_filme_fk"),
                             dr.GetString("nome_fil"),
                             dr.GetString("sinopse_fil"),
-                            dr.GetTimeSpan("duracao_fil"),
-                            categoria);
-                        filmes.Add(filme);
+                            dr.GetTimeSpan("duracao_fil"));
+
+                        Sessao sessao = new Sessao(
+                            dr.GetInt32("id_fil"), 
+                            dr.GetDouble("valor_ses"),
+                            dr.GetBoolean("meia_ses"),
+                            dr.GetDateTime("data_ses"),
+                            dr.GetTimeSpan("hora_ses"),
+                            filme);
+                        sessoes.Add(sessao);
                     }
                 }
             }
@@ -57,7 +60,7 @@ namespace api_cinema.DAO
             {
                 Connection.CloseConnection();
             }
-            return filmes;
+            return sessoes;
         }
         public Filme getById(int id)
         {
