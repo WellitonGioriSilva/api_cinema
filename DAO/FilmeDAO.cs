@@ -2,10 +2,11 @@ using api_cinema.Models;
 using api_cinema.Utilities;
 using MySql.Data.MySqlClient;
 using api_cinema.Models;
+using api_cinema.Interfaces;
 
 namespace api_cinema.DAO
 {
-    public class FilmeDAO
+    public class FilmeDAO:IDAO<Filme>
     {
 
         public FilmeDAO()
@@ -13,23 +14,21 @@ namespace api_cinema.DAO
             
         }
 
-        public List<Filme> getAll(int id, string nome)
+        public List<Filme> GetAll(string nome)
         {
             List<Filme> filmes = new List<Filme>();
 
             try
             {
                 string filter = "";
-                if (id != 0 && id != null) filter = "WHERE id_fil = @id";
-                else if (nome != "") filter = "WHERE nome_fil LIKE @nome";
+                if (nome != "") filter = "WHERE nome_fil LIKE @nome";
 
                 string sql = $"SELECT f.*, c.nome_cat_fil AS categoria FROM Filmes AS f " + 
                 "INNER JOIN Categorias_Filme AS c ON c.id_cat_fil = f.id_categoria_fk" +
                 $"{filter} ORDER BY f.id_fil";
 
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
-                if (id != 0 && id != null) comando.Parameters.AddWithValue("@id", $"{id}%");
-                else if (nome != "") comando.Parameters.AddWithValue("@nome", $"{nome}%");
+                if (nome != "") comando.Parameters.AddWithValue("@nome", $"{nome}%");
 
                 using (MySqlDataReader dr = comando.ExecuteReader())
                 {
@@ -59,7 +58,7 @@ namespace api_cinema.DAO
             }
             return filmes;
         }
-        public Filme getById(int id)
+        public Filme GetById(int id)
         {
             if (id <= 0) throw new ArgumentException("Id inválido!");
 

@@ -2,10 +2,11 @@ using api_cinema.Models;
 using api_cinema.Utilities;
 using MySql.Data.MySqlClient;
 using api_cinema.Models;
+using api_cinema.Interfaces;
 
 namespace api_cinema.DAO
 {
-    public class SessaoDAO
+    public class SessaoDAO:IDAO<Sessao>
     {
 
         public SessaoDAO()
@@ -13,23 +14,30 @@ namespace api_cinema.DAO
             
         }
 
-        public List<Sessao> getAll(int id, int id_filme_fk)
+        public List<Sessao> GetAll(int? id_filme_fk, DateTime? data)
         {
             List<Sessao> sessoes = new List<Sessao>();
 
             try
             {
-                string filter = "";
-                if (id != 0 && id != null) filter = "WHERE id_ses = @id";
-                else if (id_filme_fk != 0 && id_filme_fk != null) filter = "WHERE id_filme_fk LIKE @id_fil";
+                string dataFormatada = data.HasValue ? data.Value.ToString("yyyy-MM-dd") : null;
 
-                string sql = $"SELECT s.*, f.* FROM Sessoes AS s " + 
+                string filter = "";
+                if (id_filme_fk != 0 && id_filme_fk != null) filter = "WHERE id_filme_fk = @id_fil";
+                if (dataFormatada != null)
+                {
+                    if(filter == "") filter += "WHERE ";
+                    else filter += " AND ";
+
+                    filter += "data_ses = @data";
+                }
+
+                string sql = $"SELECT s.*, f.* FROM Sessoes AS s " +
                 "INNER JOIN Filmes AS f ON f.id_fil = s.id_filme_fk " +
                 $"{filter} ORDER BY s.id_ses";
-
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
-                if (id != 0 && id != null) comando.Parameters.AddWithValue("@id", $"{id}%");
-                else if (id_filme_fk != 0 && id_filme_fk != null) comando.Parameters.AddWithValue("@id_fil", $"{id_filme_fk}%");
+                if (id_filme_fk != 0 && id_filme_fk != null) comando.Parameters.AddWithValue("@id_fil", $"{id_filme_fk}");
+                if (dataFormatada != null) comando.Parameters.AddWithValue("@data", $"{dataFormatada}");
 
                 using (MySqlDataReader dr = comando.ExecuteReader())
                 {
@@ -62,15 +70,15 @@ namespace api_cinema.DAO
             }
             return sessoes;
         }
-        public Filme getById(int id)
+        public Sessao GetById(int id)
         {
             if (id <= 0) throw new ArgumentException("Id inválido!");
 
-            Filme filme = new Filme();
+            Sessao sessao = new Sessao();
 
-            if (filme == null) throw new KeyNotFoundException("Nenhum registro encontrado!");
+            if (sessao == null) throw new KeyNotFoundException("Nenhum registro encontrado!");
 
-            return filme;
+            return sessao;
         }
         
         public void create(Filme filme)
@@ -78,6 +86,5 @@ namespace api_cinema.DAO
             // if(filme.id <= 0) throw new ArgumentException("Id inválido!");
             //filmes.Add(filme);
         }
-   
     }
 }

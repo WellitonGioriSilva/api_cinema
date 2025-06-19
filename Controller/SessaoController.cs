@@ -10,12 +10,12 @@ namespace api_cinema.Controller
     public class SessaoController : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetAll(int id, int id_filme_fk = 0)
+        public IActionResult GetAll(int? id_filme_fk = 0, DateTime? data = null)
         {
             try
             {
                 SessaoDAO sessaoDAO = new SessaoDAO();
-                return Ok(sessaoDAO.getAll(id, id_filme_fk));
+                return Ok(sessaoDAO.GetAll(id_filme_fk, data));
             }
             catch (KeyNotFoundException ex)
             {
@@ -37,7 +37,7 @@ namespace api_cinema.Controller
             try
             {
                 SessaoDAO sessaoDAO = new SessaoDAO();
-                var filmes = sessaoDAO.getById(id);
+                var filmes = sessaoDAO.GetById(id);
 
                 return Ok(filmes);
             }
