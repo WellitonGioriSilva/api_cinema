@@ -9,7 +9,6 @@ namespace api_cinema.Models
     public class Sessao
     {
         public int _id { get; private set; }
-        
         public double _valor {get; private set; }
         public bool _meia { get; private set; }
         public DateTime _data { get; private set; }

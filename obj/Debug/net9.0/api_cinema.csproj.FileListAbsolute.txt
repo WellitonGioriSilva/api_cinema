@@ -1,51 +1,56 @@
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\appsettings.Development.json
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\appsettings.json
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\api_cinema.staticwebassets.endpoints.json
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\api_cinema.exe
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\api_cinema.deps.json
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\api_cinema.runtimeconfig.json
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\api_cinema.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\api_cinema.pdb
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\DotNetEnv.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\Google.Protobuf.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\K4os.Compression.LZ4.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\K4os.Compression.LZ4.Streams.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\K4os.Hash.xxHash.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\Microsoft.OpenApi.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\MySql.Data.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\Sprache.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\System.Security.Permissions.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\System.Windows.Extensions.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\ZstdSharp.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\runtimes\win-x64\native\comerr64.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\runtimes\win-x64\native\gssapi64.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\runtimes\win-x64\native\k5sprt64.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\runtimes\win-x64\native\krb5_64.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\runtimes\win-x64\native\krbcc64.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\bin\Debug\net9.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.csproj.AssemblyReference.cache
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.AssemblyInfoInputs.cache
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.AssemblyInfo.cs
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.csproj.CoreCompileInputs.cache
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.sourcelink.json
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\scopedcss\bundle\api_cinema.styles.css
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\staticwebassets.build.json
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\staticwebassets.build.json.cache
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\staticwebassets.development.json
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.csproj.Up2Date
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\refint\api_cinema.dll
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.pdb
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\api_cinema.genruntimeconfig.cache
-C:\Users\giori\OneDrive\Área de Trabalho\api_cinema\obj\Debug\net9.0\ref\api_cinema.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\appsettings.json
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\api_cinema.staticwebassets.endpoints.json
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\api_cinema.exe
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\api_cinema.deps.json
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\api_cinema.runtimeconfig.json
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\api_cinema.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\api_cinema.pdb
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\DotNetEnv.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\Google.Protobuf.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\K4os.Compression.LZ4.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\K4os.Compression.LZ4.Streams.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\K4os.Hash.xxHash.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\MySql.Data.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\Sprache.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\System.Security.Permissions.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\System.Windows.Extensions.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\ZstdSharp.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\runtimes\win-x64\native\comerr64.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\runtimes\win-x64\native\gssapi64.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\runtimes\win-x64\native\k5sprt64.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\runtimes\win-x64\native\krb5_64.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\runtimes\win-x64\native\krbcc64.dll
+C:\Users\Agilsis\Desktop\api_cinema\bin\Debug\net9.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.csproj.AssemblyReference.cache
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.AssemblyInfoInputs.cache
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.AssemblyInfo.cs
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.csproj.CoreCompileInputs.cache
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.sourcelink.json
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\scopedcss\bundle\api_cinema.styles.css
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\staticwebassets\msbuild.api_cinema.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\staticwebassets\msbuild.api_cinema.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\staticwebassets\msbuild.build.api_cinema.props
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.api_cinema.props
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.api_cinema.props
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.csproj.Up2Date
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.dll
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\refint\api_cinema.dll
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.pdb
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\api_cinema.genruntimeconfig.cache
+C:\Users\Agilsis\Desktop\api_cinema\obj\Debug\net9.0\ref\api_cinema.dll
