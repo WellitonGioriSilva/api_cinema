@@ -6,16 +6,16 @@ using api_cinema.Utilities;
 namespace api_cinema.Controller
 {
     [ApiController]
-    [Route("sessao")]
-    public class SessaoController : ControllerBase
+    [Route("sala")]
+    public class SalaController : ControllerBase
     {
         [HttpGet]
-        public IActionResult GetAll(int? id_filme_fk = 0, DateTime? data = null)
+        public IActionResult GetAll()
         {
             try
             {
-                SessaoDAO sessaoDAO = new SessaoDAO();
-                return Ok(sessaoDAO.GetAll(id_filme_fk, data));
+                SalaDAO salaDAO = new SalaDAO();
+                return Ok(salaDAO.GetAll());
             }
             catch (KeyNotFoundException ex)
             {
@@ -36,8 +36,8 @@ namespace api_cinema.Controller
         {
             try
             {
-                SessaoDAO sessaoDAO = new SessaoDAO();
-                var filmes = sessaoDAO.GetById(id);
+                SalaDAO salaDAO = new SalaDAO();
+                var filmes = salaDAO.GetById(id);
 
                 return Ok(filmes);
             }

@@ -32,8 +32,9 @@ namespace api_cinema.DAO
                     filter += "data_ses = @data";
                 }
 
-                string sql = $"SELECT s.*, f.* FROM Sessoes AS s " +
+                string sql = $"SELECT s.*, f.*, sl.* FROM Sessoes AS s " +
                 "INNER JOIN Filmes AS f ON f.id_fil = s.id_filme_fk " +
+                "INNER JOIN Salas AS sl ON sl.id_sal = s.id_sala_fk " +
                 $"{filter} ORDER BY s.id_ses";
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
                 if (id_filme_fk != 0 && id_filme_fk != null) comando.Parameters.AddWithValue("@id_fil", $"{id_filme_fk}");
@@ -43,6 +44,10 @@ namespace api_cinema.DAO
                 {
                     while (dr.Read())
                     {
+                        Sala sala = new Sala(
+                            dr.GetInt32("id_sal"),
+                            dr.GetInt32("numero_sal")
+                        );
                         Filme filme = new Filme(
                             dr.GetInt32("id_filme_fk"),
                             dr.GetString("nome_fil"),
@@ -55,7 +60,8 @@ namespace api_cinema.DAO
                             dr.GetBoolean("meia_ses"),
                             dr.GetDateTime("data_ses"),
                             dr.GetTimeSpan("hora_ses"),
-                            filme);
+                            filme,
+                            sala);
                         sessoes.Add(sessao);
                     }
                 }
@@ -79,12 +85,6 @@ namespace api_cinema.DAO
             if (sessao == null) throw new KeyNotFoundException("Nenhum registro encontrado!");
 
             return sessao;
-        }
-        
-        public void create(Filme filme)
-        {
-            // if(filme.id <= 0) throw new ArgumentException("Id inválido!");
-            //filmes.Add(filme);
         }
     }
 }

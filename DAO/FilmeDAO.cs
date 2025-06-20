@@ -68,12 +68,6 @@ namespace api_cinema.DAO
 
             return filme;
         }
-        
-        public void create(Filme filme)
-        {
-            // if(filme.id <= 0) throw new ArgumentException("Id inválido!");
-            //filmes.Add(filme);
-        }
    
     }
 }
