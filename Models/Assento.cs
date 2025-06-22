@@ -4,9 +4,9 @@ namespace api_cinema.Models
 {
     public class Assento
     {
-        public int _id { get; private set; }
-        public int _numero { get; private set; }
-        public Sala _sala { get; private set; }
+        public int _id { get; set; }
+        public int _numero { get; set; }
+        public Sala? _sala { get; set; }
         public Assento()
         {
            

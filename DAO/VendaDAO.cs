@@ -1,0 +1,146 @@
+using api_cinema.Models;
+using api_cinema.Utilities;
+using MySql.Data.MySqlClient;
+using api_cinema.Models;
+using api_cinema.Interfaces;
+
+namespace api_cinema.DAO
+{
+    public class VendaDAO:IDAO<Venda>
+    {
+
+        public VendaDAO()
+        {
+            
+        }
+
+        public List<Venda> GetAll(DateTime? data = null)
+        {
+            List<Venda> vendas = new List<Venda>();
+
+            try
+            {
+                string filter = "";
+                if (data != null) filter = "WHERE datat_ven LIKE @dt";
+
+                string sql = $"SELECT v.*, c.*, cai.* FROM Vendas AS v" + 
+                "INNER JOIN Clientes AS c ON c.id_cli = v.id_cliente_fk " + 
+                "INNER JOIN Caixas AS cai ON cai.id_cai = v.id_caixa_fk " + 
+                "INNER JOIN Formas_Pagamento AS f ON f.id_for_pag = v.id_forma_pagamento_fk " + 
+                $"{filter} ORDER BY datat_ven";
+
+                MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
+                if (data != null) comando.Parameters.AddWithValue("@dt", $"{data}%");
+
+                using (MySqlDataReader dr = comando.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Cliente cliente = new Cliente(
+                            dr.GetInt32("id_cli"), 
+                            dr.GetString("nome_cli"),
+                            dr.GetString("cpf_cli"),
+                            dr.GetDateTime("dt_nascimento_cli")
+                        );
+
+                        Caixa caixa = new Caixa(
+                            dr.GetInt32("id_cai"), 
+                            dr.GetDouble("valor_ini_cai"), 
+                            dr.GetDouble("valor_fim_cai"), 
+                            dr.GetDouble("total_ent_cai"), 
+                            dr.GetDouble("total_sai_cai"), 
+                            dr.GetDateTime("dt_ini_cai"),
+                            dr.GetDateTime("dt_fim_cai")
+                        );
+                        
+                        FormaPagamento formaPagamento = new FormaPagamento(
+                            dr.GetInt32("id_for_pag"), 
+                            dr.GetString("nome_for_pag")
+                        );
+                        
+                        Venda venda = new Venda(
+                            dr.GetInt32("id_ven"),
+                            dr.GetDouble("sub_total_ven"),
+                            dr.GetDateTime("data_ven"),
+                            dr.GetDouble("desconto_ven"),
+                            dr.GetDouble("total_ven"),
+                            dr.GetInt32("id_cliente_fk"),
+                            dr.GetInt32("id_caixa_fk"),
+                            dr.GetInt32("id_forma_pagamento_fk"),
+                            cliente,
+                            caixa,
+                            formaPagamento
+                        );
+                        vendas.Add(venda);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Connection.CloseConnection();
+            }
+            return vendas;
+        }
+        public Venda GetById(int id)
+        {
+            if (id <= 0) throw new ArgumentException("Id inválido!");
+
+            Venda venda = new Venda();
+
+            if (venda == null) throw new KeyNotFoundException("Nenhum registro encontrado!");
+
+            return venda;
+        }
+
+        public void Create(Venda venda, List<Assento> assentos, int sessaoId, int quantidadeMeiaEntrada)
+        {
+            try
+            {
+                string campos = "";
+                string valores = "";
+                if (venda._clienteId != 0) {
+                    campos = ", id_cliente_fk";
+                    valores = ", @cliente";
+                };
+
+                string sql = $"INSERT INTO Vendas (sub_total_ven, data_ven, desconto_ven, total_ven, id_caixa_fk, id_forma_pagamento_fk{campos}) " +
+               $"VALUES (@subTotal, @data, @desconto, @total, @caixa, @formaPagamento{valores});";
+
+                string data = venda._data.ToString("yyyy-MM-dd");
+                MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
+                comando.Parameters.AddWithValue("@subTotal", $"{venda._subTotal}");
+                comando.Parameters.AddWithValue("@data", $"{data}");
+                comando.Parameters.AddWithValue("@desconto", $"{venda._desconto}");
+                comando.Parameters.AddWithValue("@total", $"{venda._total}");
+                if (venda._clienteId != 0) comando.Parameters.AddWithValue("@cliente", $"{venda._clienteId}");
+                comando.Parameters.AddWithValue("@caixa", $"{venda._caixaId}");
+                comando.Parameters.AddWithValue("@formaPagamento", $"{venda._formaPagamentoId}");
+                comando.ExecuteNonQuery();
+
+                IngressoDAO ingressoDAO = new IngressoDAO();
+                foreach(Assento assento in assentos){
+                    bool meia = false;
+                    if(quantidadeMeiaEntrada > 0){
+                        meia = true;
+                        quantidadeMeiaEntrada--;
+                    }
+
+                    ingressoDAO.Create(new Ingresso(0, meia, sessaoId, Convert.ToInt32(comando.LastInsertedId), assento._id));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Connection.CloseConnection();
+            }
+        }
+   
+    }
+}
