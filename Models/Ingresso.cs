@@ -6,8 +6,16 @@ namespace api_cinema.Models
     {
         public int _id { get; set; }
         public bool _meia { get; set; }
+        [Required (ErrorMessage = ("A Sessão é obrigatória!"))]
+        [Range(1, int.MaxValue, ErrorMessage = ("A Sessão é obrigatória"))]
         public int _sessaoId { get; set; }
+
+        [Required (ErrorMessage = ("A Venda é obrigatória!"))]
+        [Range(1, int.MaxValue, ErrorMessage = ("A Venda é obrigatória"))]
         public int _vendaId { get; set; }
+
+        [Required (ErrorMessage = ("O Assento é obrigatório!"))]
+        [Range(1, int.MaxValue, ErrorMessage = ("O Assento é obrigatório"))]
         public int _assentoId { get; set; }
         public Sessao? _sessao { get; set; }
         public Venda? _venda { get; set; }

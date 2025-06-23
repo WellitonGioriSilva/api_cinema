@@ -21,16 +21,17 @@ namespace api_cinema.DAO
             try
             {
                 string filter = "";
-                if (data != null) filter = "WHERE datat_ven LIKE @dt";
 
-                string sql = $"SELECT v.*, c.*, cai.* FROM Vendas AS v" + 
+                if (data.HasValue) filter = "WHERE v.data_ven = @dt";
+
+                string sql = $"SELECT v.*, c.*, cai.*, f.* FROM Vendas AS v " + 
                 "INNER JOIN Clientes AS c ON c.id_cli = v.id_cliente_fk " + 
                 "INNER JOIN Caixas AS cai ON cai.id_cai = v.id_caixa_fk " + 
                 "INNER JOIN Formas_Pagamento AS f ON f.id_for_pag = v.id_forma_pagamento_fk " + 
-                $"{filter} ORDER BY datat_ven";
+                $"{filter} ORDER BY v.data_ven";
 
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
-                if (data != null) comando.Parameters.AddWithValue("@dt", $"{data}%");
+                if (data.HasValue) comando.Parameters.AddWithValue("@dt", $"{data}");
 
                 using (MySqlDataReader dr = comando.ExecuteReader())
                 {
@@ -57,7 +58,7 @@ namespace api_cinema.DAO
                             dr.GetInt32("id_for_pag"), 
                             dr.GetString("nome_for_pag")
                         );
-                        
+
                         Venda venda = new Venda(
                             dr.GetInt32("id_ven"),
                             dr.GetDouble("sub_total_ven"),

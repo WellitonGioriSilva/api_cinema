@@ -103,10 +103,10 @@ namespace api_cinema.DAO
                 "VALUES (@meia, @sessao, @assento, @venda);";
 
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
-                comando.Parameters.AddWithValue("@meia", $"{ingresso._meia}");
-                comando.Parameters.AddWithValue("@sessao", $"{ingresso._sessaoId}");
-                comando.Parameters.AddWithValue("@assento", $"{ingresso._assentoId}");
-                comando.Parameters.AddWithValue("@venda", $"{ingresso._vendaId}");
+                comando.Parameters.AddWithValue("@meia", ingresso._meia);
+                comando.Parameters.AddWithValue("@sessao", ingresso._sessaoId);
+                comando.Parameters.AddWithValue("@assento", ingresso._assentoId);
+                comando.Parameters.AddWithValue("@venda", ingresso._vendaId);
                 comando.ExecuteNonQuery();
             }
             catch (Exception ex)
