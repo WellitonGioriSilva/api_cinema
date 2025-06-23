@@ -12,8 +12,8 @@ namespace api_cinema.Utilities
 
         public static MySqlConnection OpenConnection(){
             try{
-                string strconnection = "server=localhost;port=3306;uid=root;pwd=;database=bd_cinema";
-                // string strconnection = "server=localhost;port=3306;uid=root;pwd=root;database=bd_cinema";
+                // string strconnection = "server=localhost;port=3306;uid=root;pwd=;database=bd_cinema";
+                string strconnection = "server=localhost;port=3306;uid=root;pwd=root;database=bd_cinema";
                 connection = new MySqlConnection(strconnection);
                 connection.Open();
             }catch(Exception ex){

@@ -78,7 +78,35 @@ namespace api_cinema.Controller
             }
             finally
             {
-                System.Console.WriteLine("Fecha o bd");
+                
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                VendaDAO vendaDAO = new VendaDAO();
+                vendaDAO.Delete(id);
+
+                return Ok();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+            finally
+            {
+                
             }
         }
     }

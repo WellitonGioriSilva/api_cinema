@@ -47,7 +47,7 @@ namespace api_cinema.DAO
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
             }
             finally
             {

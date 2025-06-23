@@ -55,7 +55,7 @@ namespace api_cinema.Controller
             }
             finally
             {
-                System.Console.WriteLine("Fecha o bd");
+                
             }
         }
     }

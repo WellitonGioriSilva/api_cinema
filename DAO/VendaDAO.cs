@@ -6,12 +6,12 @@ using api_cinema.Interfaces;
 
 namespace api_cinema.DAO
 {
-    public class VendaDAO:IDAO<Venda>
+    public class VendaDAO : IDAO<Venda>
     {
 
         public VendaDAO()
         {
-            
+
         }
 
         public List<Venda> GetAll(DateTime? data = null)
@@ -24,10 +24,10 @@ namespace api_cinema.DAO
 
                 if (data.HasValue) filter = "WHERE v.data_ven = @dt";
 
-                string sql = $"SELECT v.*, c.*, cai.*, f.* FROM Vendas AS v " + 
-                "INNER JOIN Clientes AS c ON c.id_cli = v.id_cliente_fk " + 
-                "INNER JOIN Caixas AS cai ON cai.id_cai = v.id_caixa_fk " + 
-                "INNER JOIN Formas_Pagamento AS f ON f.id_for_pag = v.id_forma_pagamento_fk " + 
+                string sql = $"SELECT v.*, c.*, cai.*, f.* FROM Vendas AS v " +
+                "INNER JOIN Clientes AS c ON c.id_cli = v.id_cliente_fk " +
+                "INNER JOIN Caixas AS cai ON cai.id_cai = v.id_caixa_fk " +
+                "INNER JOIN Formas_Pagamento AS f ON f.id_for_pag = v.id_forma_pagamento_fk " +
                 $"{filter} ORDER BY v.data_ven";
 
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
@@ -38,24 +38,24 @@ namespace api_cinema.DAO
                     while (dr.Read())
                     {
                         Cliente cliente = new Cliente(
-                            dr.GetInt32("id_cli"), 
+                            dr.GetInt32("id_cli"),
                             dr.GetString("nome_cli"),
                             dr.GetString("cpf_cli"),
                             dr.GetDateTime("dt_nascimento_cli")
                         );
 
                         Caixa caixa = new Caixa(
-                            dr.GetInt32("id_cai"), 
-                            dr.GetDouble("valor_ini_cai"), 
-                            dr.GetDouble("valor_fim_cai"), 
-                            dr.GetDouble("total_ent_cai"), 
-                            dr.GetDouble("total_sai_cai"), 
+                            dr.GetInt32("id_cai"),
+                            dr.GetDouble("valor_ini_cai"),
+                            dr.GetDouble("valor_fim_cai"),
+                            dr.GetDouble("total_ent_cai"),
+                            dr.GetDouble("total_sai_cai"),
                             dr.GetDateTime("dt_ini_cai"),
                             dr.GetDateTime("dt_fim_cai")
                         );
-                        
+
                         FormaPagamento formaPagamento = new FormaPagamento(
-                            dr.GetInt32("id_for_pag"), 
+                            dr.GetInt32("id_for_pag"),
                             dr.GetString("nome_for_pag")
                         );
 
@@ -78,7 +78,7 @@ namespace api_cinema.DAO
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
             }
             finally
             {
@@ -96,17 +96,18 @@ namespace api_cinema.DAO
 
             return venda;
         }
-
         public void Create(Venda venda, List<Assento> assentos, int sessaoId, int quantidadeMeiaEntrada)
         {
             try
             {
                 string campos = "";
                 string valores = "";
-                if (venda._clienteId != 0) {
+                if (venda._clienteId != 0)
+                {
                     campos = ", id_cliente_fk";
                     valores = ", @cliente";
-                };
+                }
+                ;
 
                 string sql = $"INSERT INTO Vendas (sub_total_ven, data_ven, desconto_ven, total_ven, id_caixa_fk, id_forma_pagamento_fk{campos}) " +
                $"VALUES (@subTotal, @data, @desconto, @total, @caixa, @formaPagamento{valores});";
@@ -123,9 +124,11 @@ namespace api_cinema.DAO
                 comando.ExecuteNonQuery();
 
                 IngressoDAO ingressoDAO = new IngressoDAO();
-                foreach(Assento assento in assentos){
+                foreach (Assento assento in assentos)
+                {
                     bool meia = false;
-                    if(quantidadeMeiaEntrada > 0){
+                    if (quantidadeMeiaEntrada > 0)
+                    {
                         meia = true;
                         quantidadeMeiaEntrada--;
                     }
@@ -135,13 +138,31 @@ namespace api_cinema.DAO
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
             }
             finally
             {
                 Connection.CloseConnection();
             }
         }
-   
+        public void Delete(int id)
+        {
+            try
+            {
+                string sql = $"DELETE FROM Vendas WHERE id_ven = @id";
+
+                MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
+                comando.Parameters.AddWithValue("@id", id);
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                Connection.CloseConnection();
+            }
+        }
     }
 }

@@ -76,7 +76,7 @@ namespace api_cinema.DAO
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
             }
             finally
             {
@@ -94,7 +94,6 @@ namespace api_cinema.DAO
 
             return ingresso;
         }
-
         public void Create(Ingresso ingresso)
         {
             try
@@ -111,7 +110,7 @@ namespace api_cinema.DAO
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw new Exception(ex.Message);
             }
             finally
             {
