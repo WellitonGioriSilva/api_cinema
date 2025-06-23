@@ -14,24 +14,28 @@ namespace api_cinema.DAO
 
         }
 
-        public List<Venda> GetAll(DateTime? data = null)
+        public List<Venda> GetAll(DateTime? data = null, int? idCliente = 0)
         {
             List<Venda> vendas = new List<Venda>();
 
             try
             {
                 string filter = "";
+                if (data.HasValue) filter = "v.data_ven = @dt AND";
+                if (idCliente.HasValue && idCliente != 0) filter = "v.id_cliente_fk = @idCliente AND";
 
-                if (data.HasValue) filter = "WHERE v.data_ven = @dt";
-
-                string sql = $"SELECT v.*, c.*, cai.*, f.* FROM Vendas AS v " +
+                string sql = 
+                "SELECT v.*, c.*, cai.*, f.*, pv.id_prod_ven FROM Vendas AS v " +
                 "INNER JOIN Clientes AS c ON c.id_cli = v.id_cliente_fk " +
                 "INNER JOIN Caixas AS cai ON cai.id_cai = v.id_caixa_fk " +
                 "INNER JOIN Formas_Pagamento AS f ON f.id_for_pag = v.id_forma_pagamento_fk " +
-                $"{filter} ORDER BY v.data_ven";
+                "LEFT JOIN Produtos_Venda AS pv ON pv.id_venda_fk = v.id_ven " +
+                $"WHERE {filter} pv.id_prod_ven IS NULL " +
+                "ORDER BY v.data_ven";
 
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
                 if (data.HasValue) comando.Parameters.AddWithValue("@dt", $"{data}");
+                if (idCliente.HasValue && idCliente != 0) comando.Parameters.AddWithValue("@idCliente", $"{idCliente}");
 
                 using (MySqlDataReader dr = comando.ExecuteReader())
                 {
@@ -157,6 +161,7 @@ namespace api_cinema.DAO
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 throw new Exception(ex.Message);
             }
             finally

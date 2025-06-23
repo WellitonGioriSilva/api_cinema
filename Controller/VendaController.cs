@@ -9,13 +9,13 @@ namespace api_cinema.Controller
     [Route("venda")]
     public class VendaController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetAll(DateTime? dtIni = null)
+        [HttpGet("ingresso")]
+        public IActionResult GetAll(DateTime? dtIni = null, int? idCliente = 0)
         {
             try
             {
                 VendaDAO vendaDAO = new VendaDAO();
-                return Ok(vendaDAO.GetAll(dtIni));
+                return Ok(vendaDAO.GetAll(dtIni, idCliente));
             }
             catch (KeyNotFoundException ex)
             {
@@ -31,7 +31,7 @@ namespace api_cinema.Controller
             }
         }
 
-        [HttpPost]
+        [HttpPost("ingresso")]
         public IActionResult Create([FromBody] VendaRequest request)
         {
             try
@@ -54,7 +54,7 @@ namespace api_cinema.Controller
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("ingresso/{id}")]
         public IActionResult GetById(int id)
         {
             try
@@ -82,7 +82,7 @@ namespace api_cinema.Controller
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("ingresso/{id}")]
         public IActionResult Delete(int id)
         {
             try
