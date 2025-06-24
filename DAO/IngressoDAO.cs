@@ -6,12 +6,12 @@ using api_cinema.Interfaces;
 
 namespace api_cinema.DAO
 {
-    public class IngressoDAO:IDAO<Ingresso>
+    public class IngressoDAO : IDAO<Ingresso>
     {
 
         public IngressoDAO()
         {
-            
+
         }
 
         public List<Ingresso> GetAll(int idVenda = 0)
@@ -23,10 +23,10 @@ namespace api_cinema.DAO
                 string filter = "";
                 if (idVenda != null && idVenda != 0) filter = "WHERE id_venda_fk = @idVenda";
 
-                string sql = $"SELECT i.*, s.*, a.*, v.* FROM Ingressos AS i" + 
-                "INNER JOIN Sessoes AS s ON s.id_ses = i.id_sessao_fk " + 
-                "INNER JOIN Assentos AS a ON a.id_ass = i.id_assento_fk " + 
-                "INNER JOIN Vendas AS v ON v.id_ven = i.id_venda_fk " + 
+                string sql = $"SELECT i.*, s.*, a.*, v.* FROM Ingressos AS i" +
+                "INNER JOIN Sessoes AS s ON s.id_ses = i.id_sessao_fk " +
+                "INNER JOIN Assentos AS a ON a.id_ass = i.id_assento_fk " +
+                "INNER JOIN Vendas AS v ON v.id_ven = i.id_venda_fk " +
                 $"{filter}";
 
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
@@ -37,7 +37,7 @@ namespace api_cinema.DAO
                     while (dr.Read())
                     {
                         Sessao sessao = new Sessao(
-                            dr.GetInt32("id_fil"), 
+                            dr.GetInt32("id_fil"),
                             dr.GetDouble("valor_ses"),
                             dr.GetBoolean("meia_ses"),
                             dr.GetDateTime("data_ses"),
@@ -45,10 +45,10 @@ namespace api_cinema.DAO
                         );
 
                         Assento assento = new Assento(
-                            dr.GetInt32("id_ass"), 
+                            dr.GetInt32("id_ass"),
                             dr.GetInt32("numero_ass")
                         );
-                        
+
                         Venda venda = new Venda(
                             dr.GetInt32("id_ven"),
                             dr.GetDouble("sub_total_ven"),
@@ -59,7 +59,7 @@ namespace api_cinema.DAO
                             dr.GetInt32("id_caixa_fk"),
                             dr.GetInt32("id_forma_pagamento_fk")
                         );
-                        
+
                         Ingresso ingresso = new Ingresso(
                             dr.GetInt32("id_ven"),
                             dr.GetBoolean("meia_ing"),
@@ -110,6 +110,40 @@ namespace api_cinema.DAO
             }
             catch (Exception ex)
             {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                Connection.CloseConnection();
+            }
+        }
+        
+        public void Delete(int id = 0, int vendaId = 0)
+        {
+            try
+            {
+                string filter = "";
+                if (id != 0) filter = "id_ing = @id";
+                if (vendaId != 0) filter = "id_venda_fk = @vendaId";
+
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    string sql = $"DELETE FROM Ingressos WHERE {filter}";
+
+                    MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
+                    if (id != 0) comando.Parameters.AddWithValue("@id", id);
+                    if (vendaId != 0) comando.Parameters.AddWithValue("@vendaId", vendaId);
+
+                    comando.ExecuteNonQuery();
+                }
+                else
+                {
+                    throw new Exception("Preencha ao menos um dos filtros!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
                 throw new Exception(ex.Message);
             }
             finally

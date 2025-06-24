@@ -54,6 +54,29 @@ namespace api_cinema.Controller
             }
         }
 
+        [HttpPut("ingresso")]
+        public IActionResult Update([FromBody] VendaRequest request)
+        {
+            try
+            {
+                VendaDAO vendaDAO = new VendaDAO();
+                vendaDAO.Update(request._venda, request._assentos, request._sessaoId, request._quantidadeMeiaEntrada);
+                return Ok();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpGet("ingresso/{id}")]
         public IActionResult GetById(int id)
         {

@@ -8,7 +8,7 @@ namespace api_cinema.Models
 {
     public class Venda
     {
-        public int _id { get; private set; }
+        public int? _id { get; set; }
         [Required (ErrorMessage = ("O Sub-Total é obrigatório!"))]
         [Range(0.1, double.MaxValue, ErrorMessage = ("O Sub-Total deve ser maior do que zero!"))]
         public double _subTotal { get; set; }

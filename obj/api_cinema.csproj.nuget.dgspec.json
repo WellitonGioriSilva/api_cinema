@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\giori\\OneDrive\\Área de Trabalho\\api_cinema\\api_cinema.csproj": {}
+    "C:\\Users\\Agilsis\\Desktop\\api_cinema\\api_cinema.csproj": {}
   },
   "projects": {
-    "C:\\Users\\giori\\OneDrive\\Área de Trabalho\\api_cinema\\api_cinema.csproj": {
+    "C:\\Users\\Agilsis\\Desktop\\api_cinema\\api_cinema.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\giori\\OneDrive\\Área de Trabalho\\api_cinema\\api_cinema.csproj",
+        "projectUniqueName": "C:\\Users\\Agilsis\\Desktop\\api_cinema\\api_cinema.csproj",
         "projectName": "api_cinema",
-        "projectPath": "C:\\Users\\giori\\OneDrive\\Área de Trabalho\\api_cinema\\api_cinema.csproj",
-        "packagesPath": "C:\\Users\\giori\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\giori\\OneDrive\\Área de Trabalho\\api_cinema\\obj\\",
+        "projectPath": "C:\\Users\\Agilsis\\Desktop\\api_cinema\\api_cinema.csproj",
+        "packagesPath": "C:\\Users\\Agilsis\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Agilsis\\Desktop\\api_cinema\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\giori\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Agilsis\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net9.0": {
@@ -87,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

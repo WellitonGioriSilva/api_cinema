@@ -24,7 +24,7 @@ namespace api_cinema.DAO
                 if (data.HasValue) filter = "v.data_ven = @dt AND";
                 if (idCliente.HasValue && idCliente != 0) filter = "v.id_cliente_fk = @idCliente AND";
 
-                string sql = 
+                string sql =
                 "SELECT v.*, c.*, cai.*, f.*, pv.id_prod_ven FROM Vendas AS v " +
                 "INNER JOIN Clientes AS c ON c.id_cli = v.id_cliente_fk " +
                 "INNER JOIN Caixas AS cai ON cai.id_cai = v.id_caixa_fk " +
@@ -127,18 +127,7 @@ namespace api_cinema.DAO
                 comando.Parameters.AddWithValue("@formaPagamento", $"{venda._formaPagamentoId}");
                 comando.ExecuteNonQuery();
 
-                IngressoDAO ingressoDAO = new IngressoDAO();
-                foreach (Assento assento in assentos)
-                {
-                    bool meia = false;
-                    if (quantidadeMeiaEntrada > 0)
-                    {
-                        meia = true;
-                        quantidadeMeiaEntrada--;
-                    }
-
-                    ingressoDAO.Create(new Ingresso(0, meia, sessaoId, Convert.ToInt32(comando.LastInsertedId), assento._id));
-                }
+                GeraIngressos(assentos, quantidadeMeiaEntrada, sessaoId, Convert.ToInt32(comando.LastInsertedId));
             }
             catch (Exception ex)
             {
@@ -167,6 +156,78 @@ namespace api_cinema.DAO
             finally
             {
                 Connection.CloseConnection();
+            }
+        }
+        public void Update(Venda venda, List<Assento> assentos, int sessaoId, int quantidadeMeiaEntrada)
+        {
+            try
+            {
+                System.Console.WriteLine(venda._id);
+                if (!venda._id.HasValue || venda._id == 0) throw new Exception("O Id de venda é obrigatório!");
+
+                IngressoDAO ingressoDAO = new IngressoDAO();
+                ingressoDAO.Delete(0, venda._id ?? 0);
+
+                string campos = "";
+                if (venda._clienteId != 0)
+                {
+                    campos = ", id_cliente_fk = @cliente";
+                }
+                ;
+
+                string sql = $"UPDATE Vendas SET " +
+                $"sub_total_ven = @subTotal, " +
+                $"data_ven = @data, " +
+                $"desconto_ven = @desconto, " +
+                $"total_ven = @total, " +
+                $"id_caixa_fk = @caixa, " +
+                $"id_forma_pagamento_fk = @formaPagamento" +
+                $"{campos} " +
+                $"WHERE id_ven = @id;";
+
+                string data = venda._data.ToString("yyyy-MM-dd");
+                MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
+                comando.Parameters.AddWithValue("@subTotal", $"{venda._subTotal}");
+                comando.Parameters.AddWithValue("@data", $"{data}");
+                comando.Parameters.AddWithValue("@desconto", $"{venda._desconto}");
+                comando.Parameters.AddWithValue("@total", $"{venda._total}");
+                if (venda._clienteId != 0) comando.Parameters.AddWithValue("@cliente", $"{venda._clienteId}");
+                comando.Parameters.AddWithValue("@caixa", $"{venda._caixaId}");
+                comando.Parameters.AddWithValue("@formaPagamento", $"{venda._formaPagamentoId}");
+                comando.Parameters.AddWithValue("@id", $"{venda._id}");
+                comando.ExecuteNonQuery();
+
+                GeraIngressos(assentos, quantidadeMeiaEntrada, sessaoId, venda._id ?? 0);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                Connection.CloseConnection();
+            }
+        }
+
+        private void GeraIngressos(List<Assento> assentos, int quantidadeMeiaEntrada, int sessaoId, int vendaId)
+        {
+            try
+            {
+                IngressoDAO ingressoDAO = new IngressoDAO();
+                foreach (Assento assento in assentos)
+                {
+                    bool meia = false;
+                    if (quantidadeMeiaEntrada > 0)
+                    {
+                        meia = true;
+                        quantidadeMeiaEntrada--;
+                    }
+
+                    ingressoDAO.Create(new Ingresso(0, meia, sessaoId, vendaId, assento._id));
+                }
+            }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }
