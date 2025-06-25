@@ -23,10 +23,11 @@ namespace api_cinema.DAO
                 string filter = "";
                 if (idVenda != null && idVenda != 0) filter = "WHERE id_venda_fk = @idVenda";
 
-                string sql = $"SELECT i.*, s.*, a.*, v.* FROM Ingressos AS i" +
+                string sql = $"SELECT i.*, s.*, a.*, v.*, f.* FROM Ingressos AS i " +
                 "INNER JOIN Sessoes AS s ON s.id_ses = i.id_sessao_fk " +
                 "INNER JOIN Assentos AS a ON a.id_ass = i.id_assento_fk " +
                 "INNER JOIN Vendas AS v ON v.id_ven = i.id_venda_fk " +
+                "INNER JOIN Filmes AS f ON f.id_fil = s.id_filme_fk " +
                 $"{filter}";
 
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
@@ -36,12 +37,20 @@ namespace api_cinema.DAO
                 {
                     while (dr.Read())
                     {
-                        Sessao sessao = new Sessao(
+                        Filme filme = new Filme(
                             dr.GetInt32("id_fil"),
+                            dr.GetString("nome_fil"),
+                            dr.GetString("sinopse_fil"),
+                            dr.GetTimeSpan("duracao_fil")
+                        );
+
+                        Sessao sessao = new Sessao(
+                            dr.GetInt32("id_ses"),
                             dr.GetDouble("valor_ses"),
                             dr.GetBoolean("meia_ses"),
                             dr.GetDateTime("data_ses"),
-                            dr.GetTimeSpan("hora_ses")
+                            dr.GetTimeSpan("hora_ses"),
+                            filme
                         );
 
                         Assento assento = new Assento(

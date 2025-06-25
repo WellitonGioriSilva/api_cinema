@@ -92,11 +92,74 @@ namespace api_cinema.DAO
         }
         public Venda GetById(int id)
         {
-            if (id <= 0) throw new ArgumentException("Id inválido!");
-
             Venda venda = new Venda();
 
-            if (venda == null) throw new KeyNotFoundException("Nenhum registro encontrado!");
+            try
+            {
+                if (id == 0) throw new ArgumentException("Id inválido!");
+
+                string sql =
+                "SELECT v.*, c.*, cai.*, f.*, pv.id_prod_ven FROM Vendas AS v " +
+                "INNER JOIN Clientes AS c ON c.id_cli = v.id_cliente_fk " +
+                "INNER JOIN Caixas AS cai ON cai.id_cai = v.id_caixa_fk " +
+                "INNER JOIN Formas_Pagamento AS f ON f.id_for_pag = v.id_forma_pagamento_fk " +
+                "LEFT JOIN Produtos_Venda AS pv ON pv.id_venda_fk = v.id_ven " +
+                $"WHERE v.id_ven = @id AND pv.id_prod_ven IS NULL " +
+                "ORDER BY v.data_ven";
+
+                MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
+                if (id != 0) comando.Parameters.AddWithValue("@id", $"{id}");
+
+                using (MySqlDataReader dr = comando.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Cliente cliente = new Cliente(
+                            dr.GetInt32("id_cli"),
+                            dr.GetString("nome_cli"),
+                            dr.GetString("cpf_cli"),
+                            dr.GetDateTime("dt_nascimento_cli")
+                        );
+
+                        Caixa caixa = new Caixa(
+                            dr.GetInt32("id_cai"),
+                            dr.GetDouble("valor_ini_cai"),
+                            dr.GetDouble("valor_fim_cai"),
+                            dr.GetDouble("total_ent_cai"),
+                            dr.GetDouble("total_sai_cai"),
+                            dr.GetDateTime("dt_ini_cai"),
+                            dr.GetDateTime("dt_fim_cai")
+                        );
+
+                        FormaPagamento formaPagamento = new FormaPagamento(
+                            dr.GetInt32("id_for_pag"),
+                            dr.GetString("nome_for_pag")
+                        );
+
+                        venda = new Venda(
+                            dr.GetInt32("id_ven"),
+                            dr.GetDouble("sub_total_ven"),
+                            dr.GetDateTime("data_ven"),
+                            dr.GetDouble("desconto_ven"),
+                            dr.GetDouble("total_ven"),
+                            dr.GetInt32("id_cliente_fk"),
+                            dr.GetInt32("id_caixa_fk"),
+                            dr.GetInt32("id_forma_pagamento_fk"),
+                            cliente,
+                            caixa,
+                            formaPagamento
+                        );
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                Connection.CloseConnection();
+            }
 
             return venda;
         }

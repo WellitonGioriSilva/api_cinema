@@ -99,10 +99,6 @@ namespace api_cinema.Controller
             {
                 return StatusCode(500, ex.Message);
             }
-            finally
-            {
-                
-            }
         }
 
         [HttpDelete("ingresso/{id}")]
@@ -126,10 +122,6 @@ namespace api_cinema.Controller
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
-            }
-            finally
-            {
-                
             }
         }
     }
