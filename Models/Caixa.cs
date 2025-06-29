@@ -9,7 +9,6 @@ namespace api_cinema.Models
     {
         public int _id { get; private set; }
         public double _valorIni { get; private set; }
-        public double _valorFim { get; private set; }
         public double _totalEnt { get; private set; }
         public double _totalSai { get; private set; }
         public DateTime _dtIni { get; private set; }
@@ -19,11 +18,10 @@ namespace api_cinema.Models
         {
            
         }
-        public Caixa(int id, double valorIni, double valorFim, double totalEnt, double totalSai, DateTime dtIni, DateTime dtFim, Funcionario funcionario = null) 
+        public Caixa(int id, double valorIni, double totalEnt, double totalSai, DateTime dtIni, DateTime dtFim, Funcionario funcionario = null) 
         {
             _id = id;
             _valorIni = valorIni;
-            _valorFim = valorFim;
             _totalEnt = totalEnt;
             _totalSai = totalSai;
             _dtIni = dtIni;

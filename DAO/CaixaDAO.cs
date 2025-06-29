@@ -36,7 +36,6 @@ namespace api_cinema.DAO
                         Caixa caixa = new Caixa(
                             dr.GetInt32("id_cai"), 
                             dr.GetDouble("valor_ini_cai"), 
-                            dr.GetDouble("valor_fim_cai"), 
                             dr.GetDouble("total_ent_cai"), 
                             dr.GetDouble("total_sai_cai"), 
                             dr.GetDateTime("dt_ini_cai"),
@@ -65,6 +64,59 @@ namespace api_cinema.DAO
 
             return caixa;
         }
-   
+
+        public void Entrada(int id, double valor)
+        {
+
+            try
+            {
+                if (id == null || id == 0) throw new Exception("Id inválido!");
+                // if (valor == null || valor == 0) throw new Exception("Valor deve ser maior do que zero!");
+
+                string sql = $"UPDATE Caixas SET total_ent_cai = total_ent_cai + @valor " + 
+                "WHERE id_cai = @id";
+
+                System.Console.WriteLine(sql);
+
+                MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@valor", valor);
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                Connection.CloseConnection();
+            }
+        }
+
+        public void Saida(int id, double valor)
+        {
+
+            try
+            {
+                if (id == null || id == 0) throw new Exception("Id inválido!");
+                // if (valor == null || valor == 0) throw new Exception("Valor deve ser maior do que zero!");
+
+                string sql = $"UPDATE Caixas SET total_sai_cai = total_sai_cai + @valor " + 
+                "WHERE id_cai = @id";
+
+                MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@valor", valor);
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                Connection.CloseConnection();
+            }
+        }
     }
 }

@@ -51,7 +51,6 @@ namespace api_cinema.DAO
                         Caixa caixa = new Caixa(
                             dr.GetInt32("id_cai"),
                             dr.GetDouble("valor_ini_cai"),
-                            dr.GetDouble("valor_fim_cai"),
                             dr.GetDouble("total_ent_cai"),
                             dr.GetDouble("total_sai_cai"),
                             dr.GetDateTime("dt_ini_cai"),
@@ -124,7 +123,6 @@ namespace api_cinema.DAO
                         Caixa caixa = new Caixa(
                             dr.GetInt32("id_cai"),
                             dr.GetDouble("valor_ini_cai"),
-                            dr.GetDouble("valor_fim_cai"),
                             dr.GetDouble("total_ent_cai"),
                             dr.GetDouble("total_sai_cai"),
                             dr.GetDateTime("dt_ini_cai"),
@@ -191,6 +189,8 @@ namespace api_cinema.DAO
                 comando.ExecuteNonQuery();
 
                 GeraIngressos(assentos, quantidadeMeiaEntrada, sessaoId, Convert.ToInt32(comando.LastInsertedId));
+                CaixaDAO caixaDAO = new CaixaDAO();
+                caixaDAO.Entrada(venda._caixaId, venda._total);
             }
             catch (Exception ex)
             {
@@ -205,11 +205,19 @@ namespace api_cinema.DAO
         {
             try
             {
+                if (id == null || id == 0) throw new Exception("O Id de venda é obrigatório!");
+                
                 string sql = $"DELETE FROM Vendas WHERE id_ven = @id";
+
+                double valorAntigo = GetById(id)._total;
+                int caixa = GetById(id)._caixaId;
 
                 MySqlCommand comando = new MySqlCommand(sql, Connection.OpenConnection());
                 comando.Parameters.AddWithValue("@id", id);
                 comando.ExecuteNonQuery();
+
+                CaixaDAO caixaDAO = new CaixaDAO();
+                caixaDAO.Entrada(caixa, valorAntigo * -1);
             }
             catch (Exception ex)
             {
@@ -225,8 +233,10 @@ namespace api_cinema.DAO
         {
             try
             {
-                System.Console.WriteLine(venda._id);
                 if (!venda._id.HasValue || venda._id == 0) throw new Exception("O Id de venda é obrigatório!");
+
+                double valorAntigo = GetById(venda._id ?? 0)._total;
+                int caixaAntigo = GetById(venda._id ?? 0)._caixaId;
 
                 IngressoDAO ingressoDAO = new IngressoDAO();
                 ingressoDAO.Delete(0, venda._id ?? 0);
@@ -261,6 +271,10 @@ namespace api_cinema.DAO
                 comando.ExecuteNonQuery();
 
                 GeraIngressos(assentos, quantidadeMeiaEntrada, sessaoId, venda._id ?? 0);
+                CaixaDAO caixaDAO = new CaixaDAO();
+                
+                caixaDAO.Entrada(caixaAntigo, valorAntigo * -1);
+                caixaDAO.Entrada(venda._caixaId, venda._total);
             }
             catch (Exception ex)
             {

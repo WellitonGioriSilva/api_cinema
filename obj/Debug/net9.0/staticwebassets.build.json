@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "ux14krjqfn5jIBE/THiuyCKwj0BoKThvxxFt9I7L4Dc=",
-  "Source": "api_cinema",
-  "BasePath": "_content/api_cinema",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"ux14krjqfn5jIBE/THiuyCKwj0BoKThvxxFt9I7L4Dc=","Source":"api_cinema","BasePath":"_content/api_cinema","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
