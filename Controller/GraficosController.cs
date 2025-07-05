@@ -54,5 +54,29 @@ namespace api_cinema.Controller
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("produtos")]
+        public IActionResult GetAllProdutos()
+        {
+            try
+            {
+                ProdutoMaisVendidoDAO produtoMaisVendidoDAO = new ProdutoMaisVendidoDAO();
+                
+                return Ok(produtoMaisVendidoDAO.GetAll());
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }
